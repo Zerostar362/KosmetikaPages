@@ -1,4 +1,4 @@
-const currentPath = window.location.pathname
+const currentPage = window.location.pathname.split('/').pop() || 'index.html'
 const navLinks = document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]')
 
 for (const link of navLinks) {
@@ -7,11 +7,9 @@ for (const link of navLinks) {
     continue
   }
 
-  const isHomeLink = href.endsWith('index.html')
-  const isHomePath = currentPath === '/' || currentPath.endsWith('/index.html')
-  const isCurrent = isHomeLink
-    ? isHomePath
-    : currentPath.endsWith(href.replace(/^\//, '/'))
+  const linkPage = href.split('/').pop() || 'index.html'
+  const isHomePath = currentPage === '' || currentPage === 'index.html'
+  const isCurrent = linkPage === 'index.html' ? isHomePath : linkPage === currentPage
 
   if (isCurrent) {
     link.setAttribute('aria-current', 'page')
